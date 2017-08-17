@@ -5,50 +5,37 @@
  */
 import React, { Component } from 'react';
 import {
-    AppRegistry, StyleSheet,Navigator,
+    AsyncStorage, AppRegistry, StyleSheet,Navigator,
     Text, View,
     TouchableHighlight, TextInput,TouchableNativeFeedback
 } from 'react-native';
 // import { Button } from 'antd-mobile';
-import { TabBar, Icon, SearchBar, List, NavBar, DatePicker } from 'antd-mobile';
+import { TabBar, Icon, SearchBar, List, NavBar, DatePicker,InputItem } from 'antd-mobile';
+import MenuBar from './components/MenuBar';
+import Global from './util/global.js';
 
 export default class AwesomeProject extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'redTab',
-            hidden: false,
-            open: true,
         };
     }
     renderContent(pageText) {
         return (<View style={{ flex: 1, alignItems: 'center', backgroundColor: 'white' }}>
             <SearchBar placeholder="搜索" showCancelButton/>
             <Text style={{ margin: 50 }}>{pageText}</Text>
-        </View>);
+            </View>);
     }
-    onChangeTab(tabName) {
-        this.setState({
-            selectedTab: tabName,
-        });
+    componentWillMount(){
+        AsyncStorage.getItem('id_token',
+            (err,result) => {
+                console.log(result);
+                Global.token = result;
+            })
     }
     render() {
-
         return (
-            <TabBar unselectedTintColor="#949494" tintColor="#33A3F4" barTintColor="#ccc">
-                <TabBar.Item title="生活" icon={require('./alipay.png')} selectedIcon={require('./alipay.png')} selected={this.state.selectedTab === 'blueTab'} onPress={() => this.onChangeTab('blueTab')}>
-                    {this.renderContent('生活 Tab')}
-                </TabBar.Item>
-                <TabBar.Item icon={require('./alipay.png')} selectedIcon={require('./alipay.png')} title="口碑" badge={2} selected={this.state.selectedTab === 'redTab'} onPress={() => this.onChangeTab('redTab')}>
-                    {this.renderContent('口碑 Tab')}
-                </TabBar.Item>
-                <TabBar.Item icon={require('./alipay.png')} selectedIcon={require('./alipay.png')} title="朋友" selected={this.state.selectedTab === 'greenTab'} onPress={() => this.onChangeTab('greenTab')}>
-                    {this.renderContent('朋友 Tab')}
-                </TabBar.Item>
-                <TabBar.Item icon={require('./alipay.png')} selectedIcon={require('./alipay.png')} title="我的" selected={this.state.selectedTab === 'yellowTab'} onPress={() => this.onChangeTab('yellowTab')}>
-                    {this.renderContent('我的 Tab')}
-                </TabBar.Item>
-            </TabBar>
+            <MenuBar></MenuBar>
         );
 
     }
