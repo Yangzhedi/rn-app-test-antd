@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 import Login from '../src/login/Login.js';
+import Home from '../src/Home/Home.js';
 import Me from '../src/me/Me.js';
 import Tournament from '../src/Tournament/Tournament.js';
 import TournamentFirst from '../src/Tournament/TournamentFirst.js';
@@ -69,7 +70,7 @@ const TournamentNav = StackNavigator({
 
 const MyTab = TabNavigator({
     Test1: {
-        screen: Login,
+        screen: Home,
         navigationOptions:({navigation,screenProps}) => ({
 
             // StackNavigator 属性部分
