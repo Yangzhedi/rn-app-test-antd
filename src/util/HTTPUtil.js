@@ -19,8 +19,9 @@ HTTPUtil.get = function(uri, params) {
             url += '&' + paramsArray.join('&')
         }
     }
+    let headers = !Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
+    console.log(url, Global.token);
     return new Promise(function (resolve, reject) {
-        let headers = Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
         fetch(url, {
             method: 'GET',
             headers: headers
@@ -54,7 +55,7 @@ HTTPUtil.get = function(uri, params) {
 HTTPUtil.post = function (uri, formData) {
     let url = Global.hostApi + uri;
     return new Promise(function (resolve, reject) {
-        let headers = Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
+        let headers = !Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
         fetch(url, {
             method: 'POST',
             headers: headers,

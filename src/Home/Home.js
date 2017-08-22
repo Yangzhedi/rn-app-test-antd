@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {TouchableHighlight, Image, Text, View} from 'react-native';
+import {AsyncStorage, TouchableHighlight, Image, Text, View} from 'react-native';
 import {Button, Icon, List, Popup, NavBar, DatePicker, ListView} from 'antd-mobile';
+import Global from '../util/global.js';
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -82,6 +83,13 @@ export default class Home extends Component {
         };
     }
 
+    componentWillMount(){
+        AsyncStorage.getItem('id_token',
+            (err,result) => {
+                console.log(result);
+                Global.token = result;
+            })
+    }
     componentDidMount(){
         this.props.navigation.setParams({
             headerTitle:'赛事主页',

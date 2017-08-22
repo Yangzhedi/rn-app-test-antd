@@ -15,30 +15,24 @@ export default class Me extends Component {
         super(props);
         this.state = {
             name:'',
-            avatar:''
+            avatar:'',
+            logedIn:false
         };
     }
     componentWillMount(){
         fetcher.get('/account').then((response)=>{
             console.log(response);
-            if(response){
                 this.setState({
-                    name: response.nickName
+                    name: response.nickName,
+                    logedIn:true
                 })
-            }else{
-                this.setState({
-                    name:'登录/注册'
-                })
-            }
-
         })
         .catch((err)=>{
             console.log(err);
         })
     }
     render() {
-        // console.log(Global.token);
-        return (
+        let loginPage = (
             <View>
             <Text>me</Text>
             <Text>{this.state.name}</Text>
@@ -50,6 +44,10 @@ export default class Me extends Component {
                 </Button>
             </View>
         );
+        let mePage = (<View>
+            <Text>{this.state.name}</Text>
+            </View>);
+        return this.state.logedIn ? mePage : loginPage;
     }
 
 }
