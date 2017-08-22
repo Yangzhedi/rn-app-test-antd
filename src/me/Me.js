@@ -5,37 +5,58 @@
  */
 import React, {Component} from 'react';
 import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
-// import { Button } from 'antd-mobile';
-import {Button, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
+import {Button, Icon, Modal, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
 import fetcher from '../util/HTTPUtil.js';
-
+import Global from '../util/global.js';
 
 export default class Me extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:'',
             avatar:'',
-            logedIn:false
+            person:{},
+            logedIn:false,
+            rendered: true
         };
+        this.onButtonClick = this.onButtonClick.bind(this)
     }
     componentWillMount(){
+        console.log('componentWillMount')
         fetcher.get('/account').then((response)=>{
             console.log(response);
                 this.setState({
-                    name: response.nickName,
-                    logedIn:true
+                    logedIn:true,
+                    person:response
                 })
         })
         .catch((err)=>{
             console.log(err);
         })
     }
+
+    onButtonClick(){
+        const { navigate } = this.props.navigation;
+        Modal.alert('标题', ('确定要退出登录？'), [
+            { text: 'OK', onPress: () => {
+                AsyncStorage.removeItem('id_token');
+                Global.token = null;
+                this.setState({logedIn:false,person:{}})
+                navigate('Test1');
+            }, style: 'cancel' },
+            { text: 'Cancel', onPress: () => console.log('cancel') }
+        ]);
+    };
     render() {
+        console.log(Global.token);
+        AsyncStorage.getItem('id_token',
+            (err,result) => {
+                console.log(result);
+            })
         let loginPage = (
             <View>
-            <Text>me</Text>
-            <Text>{this.state.name}</Text>
+                <Text>me</Text>
+                <Text>{this.state.person.nickName}</Text>
+                <Text>{this.state.person.login}</Text>
                 <Button onClick={()=>{
                     const { navigate } = this.props.navigation;
                     navigate('Login');
@@ -44,9 +65,19 @@ export default class Me extends Component {
                 </Button>
             </View>
         );
-        let mePage = (<View>
-            <Text>{this.state.name}</Text>
-            </View>);
+        let mePage = (
+            <View>
+                <Text>{this.state.person.nickName}</Text>
+                <Text>{this.state.person.login}</Text>
+                <Button type="warning" onClick={this.onButtonClick}>退出登录</Button>
+                <Button onClick={()=>{
+                    this.setState({
+                        rendered:!this.state.rendered
+                    })
+                }}>刷新页面测试</Button>
+                <Text>{this.state.rendered + ''}</Text>
+            </View>
+        );
         return this.state.logedIn ? mePage : loginPage;
     }
 

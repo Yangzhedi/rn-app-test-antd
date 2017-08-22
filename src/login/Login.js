@@ -21,8 +21,8 @@ export default class Login extends Component {
     }
 
     login() {
+        const { navigate } = this.props.navigation;
         // fetch
-        console.log(this.state.phone, this.state.password)
         fetch('https://bisaibang.com/api/authenticate', {
             method: 'POST',
             headers: {
@@ -30,8 +30,8 @@ export default class Login extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username:this.state.phone.replace(/\s/g, ''),
-                password:this.state.password,
+                username: '13120024922',//this.state.phone.replace(/\s/g, ''),
+                password:'12345', // this.state.password,
                 rememberMe: true
             })
         })
@@ -45,8 +45,9 @@ export default class Login extends Component {
             })
             .then((response) => {
                 console.log(response);
-                AsyncStorage.setItem('id_token', response.id_token, (error) => console.log(error));
+                AsyncStorage.setItem('id_token', response.id_token);// (error) => console.log(error)
                 Global.token = response.id_token;
+                navigate('Me');
             })
             .catch((err)=> {
                 console.log(err);

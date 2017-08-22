@@ -15,6 +15,7 @@ import {
     Image,
     StyleSheet,
     Text,
+    View,
     AsyncStorage
 } from 'react-native';
 
@@ -26,6 +27,7 @@ import TournamentFirst from '../src/Tournament/TournamentFirst.js';
 import TournamentSecond from '../src/Tournament/TournamentSecond.js';
 // import Detail1 from './Detail1.js';
 // import Detail2 from './Detail2.js';
+import {Badge, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
 
 const ShiTuIcon = require('../src/components/alipay@2x.png');
 
@@ -102,7 +104,7 @@ const MyTab = TabNavigator({
                 return(
                     <Image
                         source={!focused ? ShiTuIcon : ShiTuIcon}
-                        style={[{height:25,width:25 }, {tintColor: tintColor}]}
+                        style={[{height:30,width:30 }, {tintColor: tintColor}]}
                     />
                 )
             }), // 设置标签栏的图标。需要单独设置。
@@ -128,7 +130,7 @@ const MyTab = TabNavigator({
                 return(
                     <Image
                         source={!focused ? ShiTuIcon : ShiTuIcon}
-                        style={[{height:25,width:25 }, {tintColor: tintColor}]}
+                        style={[{height:30,width:30 }, {tintColor: tintColor}]}
                     />
                 )
             }), // 设置标签栏的图标。需要单独设置。
@@ -157,7 +159,7 @@ const MyTab = TabNavigator({
                 return(
                     <Image
                         source={!focused ? ShiTuIcon : ShiTuIcon}
-                        style={[{height:25,width:25 }, {tintColor: tintColor}]}
+                        style={[{height:30,width:30 }, {tintColor: tintColor}]}
                     />
                 )
             }), // 设置标签栏的图标。需要单独设置。
@@ -183,7 +185,7 @@ const MyTab = TabNavigator({
                 return(
                     <Image
                         source={!focused ? ShiTuIcon : ShiTuIcon}
-                        style={[{height:25,width:25 }, {tintColor: tintColor}]}
+                        style={[{height:30,width:30 }, {tintColor: tintColor}]}
                     />
                 )
             }), // 设置标签栏的图标。需要单独设置。
@@ -210,7 +212,8 @@ const MyTab = TabNavigator({
             marginTop: 0,
         },
         iconStyle: {
-            marginTop: -5,
+            marginTop: -3,
+            marginRight: 0,
         },
         tabStyle: {
             backgroundColor: 'white',
