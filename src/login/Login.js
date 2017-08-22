@@ -22,7 +22,7 @@ export default class Login extends Component {
 
     login() {
         // fetch
-        console.log(this.state.phone.trim(), this.state.password)
+        console.log(this.state.phone, this.state.password)
         fetch('https://bisaibang.com/api/authenticate', {
             method: 'POST',
             headers: {
@@ -30,8 +30,8 @@ export default class Login extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: '13120024922',
-                password: '12345',
+                username:this.state.phone.replace(/\s/g, ''),
+                password:this.state.password,
                 rememberMe: true
             })
         })
