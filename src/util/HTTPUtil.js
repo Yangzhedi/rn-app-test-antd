@@ -8,7 +8,7 @@ var HTTPUtil = {};
  * @returns {Promise}
  */
 HTTPUtil.get = function(uri, params) {
-    url = Global.hostApi + uri
+    let url = Global.hostApi + uri
     if (params) {
         let paramsArray = [];
         //encodeURIComponent
@@ -20,10 +20,10 @@ HTTPUtil.get = function(uri, params) {
         }
     }
     return new Promise(function (resolve, reject) {
-        console.log(url,Global.token);
+        let headers = Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
         fetch(url, {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + Global.token }
+            headers: headers
         })
             .then((response) => {
                 if (response.ok) {
@@ -52,11 +52,12 @@ HTTPUtil.get = function(uri, params) {
  * @returns {Promise}
  */
 HTTPUtil.post = function (uri, formData) {
-    url = Global.hostApi + uri;
+    let url = Global.hostApi + uri;
     return new Promise(function (resolve, reject) {
+        let headers = Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
         fetch(url, {
             method: 'POST',
-            headers: { 'Authorization': 'Bearer ' + Global.token },
+            headers: headers,
             body:JSON.stringify(formData),
         })
             .then((response) => {
