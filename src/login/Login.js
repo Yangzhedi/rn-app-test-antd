@@ -3,11 +3,11 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-import React, {Component} from 'react';
-import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
+import React, {Component} from "react";
+import {AsyncStorage, StyleSheet, Text, View} from "react-native";
+import {Button, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from "antd-mobile";
+import Global from "./../util/global.js";
 // import { Button } from 'antd-mobile';
-import {Button, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
-import Global from './../util/global.js'
 
 
 export default class Login extends Component {
@@ -19,8 +19,10 @@ export default class Login extends Component {
         };
         this.login = this.login.bind(this);
     }
-    login(){
+
+    login() {
         // fetch
+        console.log(this.state.phone.trim(), this.state.password)
         fetch('https://bisaibang.com/api/authenticate', {
             method: 'POST',
             headers: {
@@ -28,8 +30,8 @@ export default class Login extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username:this.state.phone,
-                password:this.state.password,
+                username: '13120024922',
+                password: '12345',
                 rememberMe: true
             })
         })
@@ -42,35 +44,36 @@ export default class Login extends Component {
                 }
             })
             .then((response) => {
-                    console.log(response);
-                    AsyncStorage.setItem('id_token', response.id_token,(error) => console.log(error));
-                    Global.token = response.id_token;
+                console.log(response);
+                AsyncStorage.setItem('id_token', response.id_token, (error) => console.log(error));
+                Global.token = response.id_token;
             })
             .catch((err)=> {
                 console.log(err);
                 //TODO 登录失败的处理
             })
     }
+
     render() {
         let login = (
             <View>
-            <Text>me</Text>
-            <InputItem clear type="phone" value={this.state.phone} onChange={(value) => {
+                <Text>me</Text>
+                <InputItem clear type="phone" value={this.state.phone} onChange={(value) => {
                 this.setState({
                     phone: value,
                 });
             }} placeholder="phone">
-            手机号
-            </InputItem>
-            <InputItem clear type="password" value={this.state.password}
-            onChange={(value) => {
+                    手机号
+                </InputItem>
+                <InputItem clear type="password" value={this.state.password}
+                           onChange={(value) => {
                 this.setState({
                     password: value,
                 });
             }} placeholder="password">
-            密码
-            </InputItem>
-            <Button type="primary" onClick={() => this.login()}>Log In</Button>
+                    密码
+                </InputItem>
+                <Button type="primary" onClick={() => this.login()}>Log In</Button>
             </View>
         );
         return login;

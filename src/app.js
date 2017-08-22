@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 import React, { Component } from 'react';
 import {
     AsyncStorage, AppRegistry, StyleSheet,Navigator,
@@ -70,4 +65,4 @@ const styles = StyleSheet.create({
     }
 });
 
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
+// AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

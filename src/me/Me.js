@@ -30,6 +30,7 @@ export default class Me extends Component {
         })
     }
     render() {
+        // console.log(Global.token);
         return (
             <View>
             <Text>{this.state.name}</Text>
