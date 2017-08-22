@@ -59,7 +59,19 @@ export default class Tournament extends Component {
                 }}>
                     跳转到Tournament1
                 </Button>
-                
+                <Button onClick={()=>{
+                    const { navigate } = this.props.navigation;
+                    navigate('Login');
+                }}>
+                    跳转到Login
+                </Button>
+
+                <Button onClick={()=>{
+                    const { navigate } = this.props.navigation;
+                    navigate('Detail1');
+                }}>
+                    跳转到Detail1
+                </Button>
             </View>
         );
     }

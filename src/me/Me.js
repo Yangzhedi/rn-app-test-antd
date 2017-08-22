@@ -21,9 +21,16 @@ export default class Me extends Component {
     componentWillMount(){
         fetcher.get('/account').then((response)=>{
             console.log(response);
-            this.setState({
-                name: response.nickName
-            })
+            if(response){
+                this.setState({
+                    name: response.nickName
+                })
+            }else{
+                this.setState({
+                    name:'登录/注册'
+                })
+            }
+
         })
         .catch((err)=>{
             console.log(err);
@@ -33,7 +40,14 @@ export default class Me extends Component {
         // console.log(Global.token);
         return (
             <View>
+            <Text>me</Text>
             <Text>{this.state.name}</Text>
+                <Button onClick={()=>{
+                    const { navigate } = this.props.navigation;
+                    navigate('Login');
+                }}>
+                    滚去登录
+                </Button>
             </View>
         );
     }
