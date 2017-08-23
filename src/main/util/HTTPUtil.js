@@ -10,6 +10,7 @@ var getPathVariable = txt => {
     }
     return matches;
 }
+HTTPUtil.wrapper = (type, uri) => (queryParams,bodyParams) => HTTPUtil.api(type, uri, queryParams, bodyParams);
 HTTPUtil.api = (type, uri, queryParams, bodyParams) => {
     let url = Global.hostApi + uri
     if (queryParams) {

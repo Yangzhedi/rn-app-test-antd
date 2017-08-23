@@ -1,13 +1,13 @@
 import fetcher from 'util/HTTPUtil.js';
 export default {
-    getAccount : (queryParams,bodyParams) => fetcher.get('/account',queryParams,bodyParams),
-    saveAccount : (queryParams,bodyParams) => fetcher.post('/account',queryParams,bodyParams),
-    changePassword : (queryParams,bodyParams) => fetcher.post('/account/change-password',queryParams,bodyParams),
-    finishPasswordReset : (queryParams,bodyParams) => fetcher.post('/account/reset_password/finish',queryParams,bodyParams),
-    requestPasswordReset : (queryParams,bodyParams) => fetcher.post('/account/reset_password/init',queryParams,bodyParams),
-    activateAccount : (queryParams,bodyParams) => fetcher.get('/activate',queryParams,bodyParams),
-    login : (queryParams,bodyParams) => fetcher.post('/authenticate',queryParams,bodyParams),
-    isAuthenticated : (queryParams,bodyParams) => fetcher.get('/authenticate',queryParams,bodyParams),
-    resetPassword : (queryParams,bodyParams) => fetcher.post('/forget/resetPassword',queryParams,bodyParams),
-    registerAccount : (queryParams,bodyParams) => fetcher.post('/register',queryParams,bodyParams)
+    getAccount : fetcher.wrapper('GET','/account'),
+    saveAccount : fetcher.wrapper('POST','/account'),
+    changePassword : fetcher.wrapper('POST','/account/change-password'),
+    finishPasswordReset : fetcher.wrapper('POST','/account/reset_password/finish'),
+    requestPasswordReset : fetcher.wrapper('POST','/account/reset_password/init'),
+    activateAccount : fetcher.wrapper('GET','/activate'),
+    login : fetcher.wrapper('POST','/authenticate'),
+    isAuthenticated : fetcher.wrapper('GET','/authenticate'),
+    resetPassword : fetcher.wrapper('POST','/forget/resetPassword'),
+    registerAccount : fetcher.wrapper('POST','/register')
 };
