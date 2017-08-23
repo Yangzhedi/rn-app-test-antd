@@ -8,6 +8,7 @@ import {AsyncStorage, StyleSheet, Text, View} from "react-native";
 import {Button, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from "antd-mobile";
 import Global from "util/global.js";
 // import { Button } from 'antd-mobile';
+import accountService from 'services/account.js';
 
 
 export default class Login extends Component {
@@ -22,26 +23,10 @@ export default class Login extends Component {
 
     login() {
         const { navigate } = this.props.navigation;
-        // fetch
-        fetch('https://bisaibang.com/api/authenticate', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
+            accountService.login(null,{
                 username: '13120024922',//this.state.phone.replace(/\s/g, ''),
                 password:'12345', // this.state.password,
                 rememberMe: true
-            })
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    console.log(response.json());
-                    //TODO 登录失败的处理
-                }
             })
             .then((response) => {
                 console.log(response);
@@ -56,7 +41,7 @@ export default class Login extends Component {
     }
 
     render() {
-        let login = (
+        return (
             <View>
                 <Text>me</Text>
                 <InputItem clear type="phone" value={this.state.phone} onChange={(value) => {
@@ -77,7 +62,6 @@ export default class Login extends Component {
                 <Button type="primary" onClick={() => this.login()}>Log In</Button>
             </View>
         );
-        return login;
     }
 
 }

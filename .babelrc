@@ -7,7 +7,7 @@
       "alias": {
         "pages": "./src/main/pages",
         "util": "./src/main/util",
-        "services": "./src/main/util/services"
+        "services": "./src/main/util/services",
         "components": "./src/main/components",
         "test": "./test"
       }

@@ -1,80 +1,78 @@
 import Global from './global.js';
 var HTTPUtil = {};
-/**
- * 基于 fetch 封装的 GET请求
- * @param uri
- * @param params {}
- * @param headers
- * @returns {Promise}
- */
-HTTPUtil.get = function(uri, params) {
+var getPathVariable = txt => {
+    let matches = [];
+    let regex = /{(.*?)}/g;
+    let match = regex.exec(txt);
+    while (match != null) {
+        matches.push(match);
+        match = regex.exec(txt);
+    }
+    return matches;
+}
+HTTPUtil.api = (type, uri, queryParams, bodyParams) => {
     let url = Global.hostApi + uri
-    if (params) {
+    if (queryParams) {
+        //check for path variables first
+        let pathVariables = getPathVariable(uri);
+        if (pathVariables.length > 0) {
+            pathVariables.forEach(item => {
+                url.replace(item[0],queryParams[item[1]]);
+                queryParams[item[1]] = undefined;
+            })
+        }
         let paramsArray = [];
         //encodeURIComponent
-        Object.keys(params).forEach(key => paramsArray.push(key + '=' + params[key]))
+        Object.keys(queryParams).forEach(key => paramsArray.push(key + '=' + queryParams[key]))
         if (url.search(/\?/) === -1) {
             url += '?' + paramsArray.join('&')
         } else {
             url += '&' + paramsArray.join('&')
         }
     }
-    let headers = !Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
-    console.log(url, Global.token);
+    let headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    if (Global.token) headers.Authorization = 'Bearer ' + Global.token;
     return new Promise(function (resolve, reject) {
         fetch(url, {
-            method: 'GET',
-            headers: headers
+            method:type,
+            headers: headers,
+            body: bodyParams ? JSON.stringify(bodyParams) : null,
         })
             .then((response) => {
                 if (response.ok) {
+                    console.log(response);
                     return response.json();
                 } else {
-                    reject({status:response.status})
+                    console.log(Global.token);
+                    reject(response)
                 }
             })
             .then((response) => {
-                console.log(response);
                 resolve(response);
             })
             .catch((err)=> {
-                console.log(err);
-                reject({status:-1});
+                reject(err)
             })
     })
 }
+/**
+ * 基于 fetch 封装的 GET请求
+ * @param uri
+ * @param params {}
+ * @returns {Promise}
+ */
+HTTPUtil.get = (uri, params) => HTTPUtil.api('GET',uri,params);
 
 
 /**
  * 基于 fetch 封装的 POST请求  FormData 表单数据
  * @param uri
  * @param formData
- * @param headers
  * @returns {Promise}
  */
-HTTPUtil.post = function (uri, formData) {
-    let url = Global.hostApi + uri;
-    return new Promise(function (resolve, reject) {
-        let headers = !Global.token ? null : { 'Authorization': 'Bearer ' + Global.token };
-        fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body:JSON.stringify(formData),
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    reject({status:response.status})
-                }
-            })
-            .then((response) => {
-                resolve(response);
-            })
-            .catch((err)=> {
-                reject({status:-1});
-            })
-    })
-};
+HTTPUtil.post = (uri, queryParams, bodyParams) => HTTPUtil.api('POST',uri,queryParams,bodyParams);
 
 export default HTTPUtil;

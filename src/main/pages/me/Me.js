@@ -4,9 +4,10 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
+import {AsyncStorage, StyleSheet, Text, View, Image} from 'react-native';
 import {Button, Icon, Modal, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
-import fetcher from 'util/HTTPUtil.js';
+import accountService from 'services/account.js';
+import personService from 'services/bsb-person.js';
 import Global from 'util/global.js';
 
 export default class Me extends Component {
@@ -22,26 +23,25 @@ export default class Me extends Component {
     }
     componentWillMount(){
         console.log('componentWillMount')
-        fetcher.get('/account').then((response)=>{
+        accountService.getAccount().then((response)=>{
             console.log(response);
-                this.setState({
-                    logedIn:true,
-                    person:response
-                })
+            this.setState({
+                logedIn:true,
+                person:response
+            })
         })
-        .catch((err)=>{
-            console.log(err);
-        })
-        fetcher.get('/bsb-person-infos').then((response)=>{
+            .catch((err)=>{
+                console.log(err);
+            })
+        personService.getPersonInfo().then((response)=>{
             console.log(response);
-                this.setState({
-                    logedIn:true,
-                    person:response
-                })
+            this.setState({
+                avatar:response.avatarUrl
+            })
         })
-        .catch((err)=>{
-            console.log(err);
-        })
+            .catch((err)=>{
+                console.log(err);
+            })
     }
 
     onButtonClick(){
@@ -64,28 +64,31 @@ export default class Me extends Component {
             })
         let loginPage = (
             <View>
-                <Text>me</Text>
-                <Text>{this.state.person.nickName}</Text>
-                <Text>{this.state.person.login}</Text>
-                <Button onClick={()=>{
-                    const { navigate } = this.props.navigation;
-                    navigate('Login');
-                }}>
-                    滚去登录
-                </Button>
+            <Text>me</Text>
+            <Text>{this.state.person.nickName}</Text>
+            <Text>{this.state.person.login}</Text>
+            <Button onClick={()=>{
+                const { navigate } = this.props.navigation;
+                navigate('Login');
+            }}>
+            滚去登录
+            </Button>
             </View>
         );
         let mePage = (
             <View>
-                <Text>{this.state.person.nickName}</Text>
-                <Text>{this.state.person.login}</Text>
-                <Button type="warning" onClick={this.onButtonClick}>退出登录</Button>
-                <Button onClick={()=>{
-                    this.setState({
-                        rendered:!this.state.rendered
-                    })
-                }}>刷新页面测试</Button>
-                <Text>{this.state.rendered + ''}</Text>
+            <Text>{this.state.person.nickName}</Text>
+            <Text>{this.state.person.login}</Text>
+            <Text>{this.state.avatar}</Text>
+            <Image style={{width: 400, height: 400}}
+            source={{uri:this.state.avatar}}/>
+            <Button type="warning" onClick={this.onButtonClick}>退出登录</Button>
+            <Button onClick={()=>{
+                this.setState({
+                    rendered:!this.state.rendered
+                })
+            }}>刷新页面测试</Button>
+            <Text>{this.state.rendered + ''}</Text>
             </View>
         );
         return this.state.logedIn ? mePage : loginPage;

@@ -26,7 +26,7 @@ project.xcworkspace
 /**/tags
 
 # vim
-*.tmp
+*.swp
 
 # Android/IntelliJ
 #
