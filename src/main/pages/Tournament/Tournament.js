@@ -11,7 +11,6 @@ export default class Tournament extends Component {
         this.getPopupContent = this.getPopupContent.bind(this);
         this.showPopup = this.showPopup.bind(this);
     }
-    
     componentDidMount(){
         this.props.navigation.setParams({
             headerTitle:'赛事主页',

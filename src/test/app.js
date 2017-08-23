@@ -19,17 +19,17 @@ import {
     AsyncStorage
 } from 'react-native';
 
-import Login from '../src/login/Login.js';
-import Home from '../src/Home/Home.js';
-import Me from '../src/me/Me.js';
-import Tournament from '../src/Tournament/Tournament.js';
-import TournamentFirst from '../src/Tournament/TournamentFirst.js';
-import TournamentSecond from '../src/Tournament/TournamentSecond.js';
+import Login from 'pages/login/Login.js';
+import Home from 'pages/Home/Home.js';
+import Me from 'pages/me/Me.js';
+import Tournament from 'pages/Tournament/Tournament.js';
+import TournamentFirst from 'pages/Tournament/TournamentFirst.js';
+import TournamentSecond from 'pages/Tournament/TournamentSecond.js';
 // import Detail1 from './Detail1.js';
 // import Detail2 from './Detail2.js';
 import {Badge, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
 
-const ShiTuIcon = require('../src/components/alipay@2x.png');
+const ShiTuIcon = require('components/alipay@2x.png');
 
 /**
  * 1、Test1是通过普通的属性创建的Tabbar和导航

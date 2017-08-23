@@ -6,8 +6,8 @@
 import React, {Component} from 'react';
 import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
 import {Button, Icon, Modal, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
-import fetcher from '../util/HTTPUtil.js';
-import Global from '../util/global.js';
+import fetcher from 'util/HTTPUtil.js';
+import Global from 'util/global.js';
 
 export default class Me extends Component {
     constructor(props) {
@@ -23,6 +23,16 @@ export default class Me extends Component {
     componentWillMount(){
         console.log('componentWillMount')
         fetcher.get('/account').then((response)=>{
+            console.log(response);
+                this.setState({
+                    logedIn:true,
+                    person:response
+                })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+        fetcher.get('/bsb-person-infos').then((response)=>{
             console.log(response);
                 this.setState({
                     logedIn:true,

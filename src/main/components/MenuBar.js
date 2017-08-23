@@ -5,8 +5,8 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Login  from '../login/Login';
-import Me  from '../me/Me.js';
+import Login  from 'pages/login/Login.js';
+import Me  from 'pages/me/Me.js';
 import {TabBar, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
 
 export default class MenuBar extends Component {

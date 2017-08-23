@@ -1,4 +1,15 @@
 {
 "presets": ["react-native"],
-"plugins": [["import", { "libraryName": "antd-mobile" }]]
+"plugins": [
+["import", { "libraryName": "antd-mobile" }],
+["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "pages": "./src/main/pages",
+        "util": "./src/main/util",
+        "components": "./src/main/components",
+        "test": "./test"
+      }
+    }]
+]
 }

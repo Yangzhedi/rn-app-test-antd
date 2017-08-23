@@ -6,8 +6,8 @@ import {
 } from 'react-native';
 // import { Button } from 'antd-mobile';
 import { TabBar, Icon, SearchBar, List, NavBar, DatePicker,InputItem } from 'antd-mobile';
-import MenuBar from './components/MenuBar';
-import Global from './util/global.js';
+import MenuBar from 'components/MenuBar';
+import Global from 'util/global.js';
 
 export default class AwesomeProject extends Component {
     constructor(props) {

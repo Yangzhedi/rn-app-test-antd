@@ -22,6 +22,12 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+# ctags
+/**/tags
+
+# vim
+*.tmp
+
 # Android/IntelliJ
 #
 build/

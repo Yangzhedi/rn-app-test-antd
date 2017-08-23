@@ -6,7 +6,7 @@
 import React, {Component} from "react";
 import {AsyncStorage, StyleSheet, Text, View} from "react-native";
 import {Button, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from "antd-mobile";
-import Global from "./../util/global.js";
+import Global from "util/global.js";
 // import { Button } from 'antd-mobile';
 
 
