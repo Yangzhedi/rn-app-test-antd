@@ -29,6 +29,13 @@ import TournamentSecond from 'pages/Tournament/TournamentSecond.js';
 // import Detail2 from './Detail2.js';
 import {Badge, Icon, SearchBar, List, NavBar, DatePicker, InputItem} from 'antd-mobile';
 
+import Reactotron from 'reactotron-react-native'
+
+Reactotron
+  .configure() // controls connection & communication settings
+  .useReactNative() // add all built-in react native plugins
+  .connect() // let's connect!
+
 const ShiTuIcon = require('components/alipay@2x.png');
 
 /**
