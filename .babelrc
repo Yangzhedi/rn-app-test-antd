@@ -1,16 +1,17 @@
 {
-"presets": ["react-native"],
-"plugins": [
-["import", { "libraryName": "antd-mobile" }],
-["module-resolver", {
-      "root": ["./src"],
-      "alias": {
-        "pages": "./src/main/pages",
-        "util": "./src/main/util",
-        "services": "./src/main/util/services",
-        "components": "./src/main/components",
-        "test": "./test"
-      }
-    }]
-]
+    "presets": ["react-native"],
+    "plugins": [
+        ["import", { "libraryName": "antd-mobile" }],
+        ["module-resolver", {
+            "root": ["./src"],
+            "extensions": [".js", ".ios.js", ".android.js"],
+            "alias": {
+                "pages": "./src/main/pages",
+                "util": "./src/main/util",
+                "services": "./src/main/util/services",
+                "components": "./src/main/components",
+                "test": "./test"
+            }
+        }]
+    ]
 }

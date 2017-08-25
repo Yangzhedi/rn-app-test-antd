@@ -36,7 +36,7 @@ Reactotron
   .useReactNative() // add all built-in react native plugins
   .connect() // let's connect!
 
-const ShiTuIcon = require('components/alipay@2x.png');
+const ShiTuIcon = require('components/alipay2x.png');
 
 /**
  * 1、Test1是通过普通的属性创建的Tabbar和导航
